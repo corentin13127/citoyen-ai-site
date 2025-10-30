@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Citoyen.AI – Vitrine & Démo</title>
+  <meta name="description" content="Citoyen.AI automatise et sécurise vos démarches administratives. Démo : connexion, vidéo, chiffres, aide et contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <!-- Préchargement d'un mini-SVG pour stabiliser l'affichage du watermark -->
+  <link rel="preload" as="image" href="data:image/svg+xml,%3Csvg viewBox='0 0 1200 480' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%236a7bff'/%3E%3Cstop offset='1' stop-color='%2354e6ba'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg transform='translate(60,70)'%3E%3Cpath d='M140 0l120 40v120c0 80-60 130-120 160C80 290 20 240 20 160V40z' fill='url(%23g1)'/%3E%3C/g%3E%3C/svg%3E"/>
+  <style>
+    :root{ --bg:#0f1220; --surface:#14182b; --muted:#a6b0cf; --text:#f2f5ff; --brand:#6a7bff; --brand2:#54e6ba; --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);} 
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;color:var(--text);background:radial-gradient(1200px 600px at 80% -10%,rgba(122,153,255,.18),transparent),radial-gradient(900px 500px at -10% 10%,rgba(123,255,204,.12),transparent),var(--bg)}
+    a{color:inherit;text-decoration:none}
+    img,svg{max-width:100%;display:block}
+    .container{max-width:1120px;margin:0 auto;padding:0 20px}
+    .hidden{display:none !important}
+
+    /* Thème clair */
+    [data-theme="light"]{ --bg:#f6f8ff; --surface:#ffffff; --muted:#4a5578; --text:#0b0e19; }
+    [data-theme="light"] body{ background:linear-gradient(180deg,#f8faff, #eef2ff 40%, #ffffff); color:var(--text); }
+    [data-theme="light"] header{ background:rgba(255,255,255,.85); border-bottom:1px solid rgba(0,0,0,.06); }
+    [data-theme="light"] .card{ border-color:rgba(0,0,0,.06); background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.01)); }
+    [data-theme="light"] .btn.ghost{ background:rgba(0,0,0,.05); }
+
+    /* Header */
+    header{position:sticky;top:0;z-index:40;background:rgba(15,18,32,.78);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .logo-badge{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:var(--shadow)}
+    .menu{display:flex;gap:12px;align-items:center}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.12);display:inline-flex;align-items:center;gap:8px;transition:transform .05s ease, box-shadow .2s ease, background .2s;cursor:pointer}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#0b0e19;border-color:transparent;font-weight:700;box-shadow:0 8px 24px rgba(122,153,255,.35)}
+    .btn.ghost{background:rgba(255,255,255,.06)}
+    .toggle{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);cursor:pointer}
+
+    /* Parallax logo watermark */
+    .parallax-wrapper{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+    .parallax-logo{position:absolute;left:50%;top:12%;transform:translateX(-50%);opacity:.08;filter:drop-shadow(0 30px 60px rgba(0,0,0,.35));will-change:transform}
+    .parallax-logo svg{width:min(1100px,90vw);height:auto}
+
+    /* Sections */
+    section{padding:86px 0}
+    h1{font-size:clamp(32px,5vw,56px);line-height:1.08;margin:0 0 12px}
+    h2{font-size:clamp(24px,3.6vw,36px);margin:0 0 16px}
+    p{color:var(--muted);line-height:1.6}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .tag{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;background:rgba(106,123,255,.12)}
+
+    /* Grids */
+    .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .grid-3 .card{padding:18px}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .kpis .card{padding:20px;text-align:center}
+    .kpis .big{font-size:34px;font-weight:800}
+    .help-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .help-item{padding:16px;cursor:pointer}
+    .help-item:hover{transform:translateY(-2px)}
+
+    video{width:100%;border-radius:16px;box-shadow:0 0 20px rgba(0,0,0,.5)}
+
+    /* Révélations au scroll */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1; transform:translateY(0)}
+
+    /* Modals */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+    .modal.open{display:flex}
+    .modal .panel{background:var(--surface);border:1px solid rgba(255,255,255,.1);border-radius:16px;max-width:520px;width:100%;padding:18px}
+    .modal .row{display:grid;gap:10px;margin:10px 0}
+    .modal input,.modal textarea,.modal select{padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--text)}
+    .idp{display:flex;gap:10px;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px;background:rgba(255,255,255,.05);cursor:pointer}
+
+    footer{padding:40px 0;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Responsive */
+    @media (max-width:1080px){.help-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:960px){
+      .hero{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+      .kpis{grid-template-columns:1fr 1fr}
+      .help-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:520px){.kpis{grid-template-columns:1fr}.help-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- Parallax logo watermark (SVG) -->
+  <div class="parallax-wrapper" aria-hidden="true">
+    <div class="parallax-logo" id="bgLogo">
+      <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Citoyen.AI watermark">
+        <defs>
+          <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#6a7bff"/>
+            <stop offset="1" stop-color="#54e6ba"/>
+          </linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="18" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <g transform="translate(60,70)" filter="url(#glow)" opacity="0.9">
+          <path d="M140 0l120 40v120c0 80-60 130-120 160C80 290 20 240 20 160V40z" fill="url(#g1)" opacity="0.35"/>
+          <rect x="60" y="70" rx="14" ry="14" width="180" height="60" fill="url(#g1)" opacity="0.45"/>
+          <circle cx="90" cy="100" r="6" fill="#0f1220"/>
+          <rect x="110" y="90" width="100" height="20" rx="6" fill="#0f1220"/>
+        </g>
+        <g transform="translate(360,250)">
+          <text x="0" y="0" font-family="Inter,system-ui" font-weight="800" font-size="120" fill="url(#g1)">Citoyen</text>
+          <text x="690" y="0" font-family="Inter,system-ui" font-weight="800" font-size="120" fill="url(#g1)">.AI</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- HEADER (common) -->
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="logo-badge"></div> Citoyen.AI</div>
+      <div class="menu" id="menuVitrine">
+        <button class="toggle" id="themeToggle" title="Changer de thème"><span id="themeIcon">🌙</span><span id="themeLabel">Sombre</span></button>
+        <a class="btn ghost" id="openLogin">Se connecter</a>
+        <a class="btn primary" id="openSignup">Créer un compte</a>
+      </div>
+      <div class="menu hidden" id="menuApp">
+        <button class="toggle" id="themeToggleApp" title="Changer de thème"><span id="themeIconApp">🌙</span><span id="themeLabelApp">Sombre</span></button>
+        <a class="btn ghost" href="#video">Vidéo</a>
+        <a class="btn ghost" href="#pourquoi">Pourquoi</a>
+        <a class="btn ghost" href="#pour-qui">Pour qui</a>
+        <a class="btn ghost" href="#chiffres">Chiffres</a>
+        <a class="btn ghost" href="#aide">Aide</a>
+        <a class="btn ghost" href="#contact">Contact</a>
+        <a class="btn primary" id="logout">Se déconnecter</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- VITRINE (avant connexion) -->
+  <main id="vitrine">
+    <section class="hero">
+      <div class="container" style="display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center">
+        <div class="reveal">
+          <span class="tag">💡 Vitrine</span>
+          <h1>Votre IA citoyenne pour les démarches administratives</h1>
+          <p>Connectez-vous pour voir la démo complète : vidéo explicative, chiffres clés, procédures d'aide et contact.</p>
+          <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn primary" id="openSignup2">Créer un compte</a>
+            <a class="btn ghost" id="openLogin2">Se connecter</a>
+          </div>
+        </div>
+        <div class="card reveal" style="padding:22px">
+          <h3 style="margin:0 0 10px">Comment ça marche</h3>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+            <div class="card" style="padding:12px"><strong>Connexion</strong><br><small>FranceConnect ou compte</small></div>
+            <div class="card" style="padding:12px"><strong>Collecte</strong><br><small>Documents & infos sécurisées</small></div>
+            <div class="card" style="padding:12px"><strong>Remplissage</strong><br><small>Formulaires intelligents</small></div>
+            <div class="card" style="padding:12px"><strong>Vérification</strong><br><small>Contrôles & pièces</small></div>
+            <div class="card" style="padding:12px"><strong>Transmission</strong><br><small>Aux bons services</small></div>
+            <div class="card" style="padding:12px"><strong>Suivi</strong><br><small>Avancement en temps réel</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- APP (après connexion) -->
+  <main id="app" class="hidden">
+    <!-- Héros connexion -->
+    <section class="hero">
+      <div class="container" style="display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center">
+        <div class="reveal">
+          <span class="tag">🚀 Démo</span>
+          <h1>Bienvenue sur Citoyen.AI</h1>
+          <p class="lead">Découvrez la plateforme : explications, chiffres, aide aux démarches et contact.</p>
+          <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#aide" class="btn primary">Demander de l'aide</a>
+            <a href="#chiffres" class="btn ghost">Voir les chiffres</a>
+          </div>
+        </div>
+        <div class="card reveal" style="padding:22px;min-height:160px;display:flex;align-items:center;justify-content:center">
+          <span style="opacity:.85">Connecté · Accès complet à la démo</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vidéo -->
+    <section id="video" class="reveal">
+      <div class="container">
+        <h2>Découvrez Citoyen.AI en 1 minute</h2>
+        <div class="card" style="padding:0;overflow:hidden;border-radius:16px">
+          <video controls playsinline style="width:100%;display:block;border-radius:16px">
+            <source src="video.ia.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pourquoi -->
+    <section id="pourquoi" class="reveal">
+      <div class="container">
+        <h2>Pourquoi Citoyen.AI</h2>
+        <p>Réduire la complexité administrative, sécuriser les informations et gagner du temps : Citoyen.AI automatise les étapes répétitives et vous laisse valider chaque envoi.</p>
+      </div>
+    </section>
+
+    <!-- Pour qui -->
+    <section id="pour-qui" class="reveal" style="background:rgba(255,255,255,.03)">
+      <div class="container">
+        <h2>Pour qui ?</h2>
+        <div class="grid-3">
+          <div class="card reveal"><strong>Étudiants étrangers</strong><p>Visas et titres de séjour : pièces collectées, formulaires pré‑remplis, suivi clair.</p></div>
+          <div class="card reveal"><strong>Jeunes actifs</strong><p>CAF, logement, mobilité : démarches plus rapides et moins d’allers‑retours.</p></div>
+          <div class="card reveal"><strong>Seniors</strong><p>Accompagnement pas‑à‑pas, même sans expertise numérique.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chiffres clés -->
+    <section id="chiffres" class="reveal">
+      <div class="container">
+        <h2>Chiffres clés</h2>
+        <div class="kpis">
+          <div class="card kpi reveal" data-to="92"><div class="big">92%</div><small>Dossiers acceptés du premier coup</small></div>
+          <div class="card kpi reveal" data-to="4"><div class="big">4 min</div><small>Temps moyen par démarche</small></div>
+          <div class="card kpi reveal" data-to="65"><div class="big">−65%</div><small>Allers‑retours évités</small></div>
+          <div class="card kpi reveal" data-to="85"><div class="big">85%</div><small>Utilisateurs très satisfaits</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Aide -->
+    <section id="aide" class="reveal" style="background:rgba(255,255,255,.03)">
+      <div class="container">
+        <h2>Demandez de l'aide maintenant</h2>
+        <div class="help-grid">
+          <div class="card help-item reveal" data-proc="Titre de séjour">🇫🇷 <strong>Titre de séjour</strong></div>
+          <div class="card help-item reveal" data-proc="Visa">🛂 <strong>Visa</strong></div>
+          <div class="card help-item reveal" data-proc="CAF">🏦 <strong>CAF</strong></div>
+          <div class="card help-item reveal" data-proc="Action Logement">🏠 <strong>Action Logement</strong></div>
+          <div class="card help-item reveal" data-proc="Carte grise">🚗 <strong>Carte grise</strong></div>
+          <div class="card help-item reveal" data-proc="Passeport & CNI">🪪 <strong>Passeport & CNI</strong></div>
+          <div class="card help-item reveal" data-proc="Impôts">📄 <strong>Impôts</strong></div>
+          <div class="card help-item reveal" data-proc="Permis de conduire">🧑‍✈️ <strong>Permis de conduire</strong></div>
+          <div class="card help-item reveal" data-proc="Sécurité sociale">🧾 <strong>Sécurité sociale</strong></div>
+          <div class="card help-item reveal" data-proc="Préfecture / RDV">🏢 <strong>Préfecture / RDV</strong></div>
+          <div class="card help-item reveal" data-proc="Université & DAP">🎓 <strong>Université & DAP</strong></div>
+          <div class="card help-item reveal" data-proc="France Travail">💼 <strong>France Travail</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="reveal">
+      <div class="container">
+        <h2>Questions fréquentes</h2>
+        <div class="grid-3">
+          <div class="card reveal"><strong>L'IA décide-t-elle à ma place ?</strong><p>Non. Elle prépare, vérifie et envoie selon vos choix. Vous gardez la décision finale.</p></div>
+          <div class="card reveal"><strong>Qui voit mes données ?</strong><p>Uniquement vous et, si vous le demandez, un conseiller habilité. Jamais vendues ni partagées sans consentement.</p></div>
+          <div class="card reveal"><strong>Et si je bloque ?</strong><p>Un humain prend le relais : chat, téléphone ou rendez‑vous. L’objectif est de rassurer, pas de remplacer.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="reveal" style="background:rgba(255,255,255,.03)">
+      <div class="container">
+        <h2>Contact</h2>
+        <form class="card" id="contactForm" style="padding:18px;display:grid;gap:12px;max-width:560px">
+          <input required name="name" placeholder="Votre nom" style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:var(--text)" />
+          <input type="email" required name="email" placeholder="Email" style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:var(--text)" />
+          <textarea rows="4" name="message" placeholder="Votre message" style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);color:var(--text)"></textarea>
+          <button class="btn primary" type="submit">Envoyer</button>
+          <small style="color:var(--muted)">En soumettant, vous acceptez notre politique de confidentialité.</small>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODALES AUTH -->
+  <div class="modal" id="loginModal" aria-hidden="true" role="dialog" aria-label="Connexion">
+    <div class="panel">
+      <h3 style="margin:0 0 8px">Se connecter</h3>
+      <div class="idp" id="btnFranceConnectLogin" title="Continuer avec FranceConnect">
+        <!-- Logo FranceConnect (simplifié, non officiel) -->
+        <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#0d47a1"/><path d="M20 22h24v20H20z" fill="#fff"/><circle cx="32" cy="32" r="8" fill="#e53935"/></svg>
+        <span>Se connecter avec FranceConnect</span>
+      </div>
+      <form id="loginForm">
+        <div class="row">
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="password" type="password" placeholder="Mot de passe" required>
+        </div>
+        <div class="row" style="display:flex;gap:10px;justify-content:flex-end">
+          <button type="button" class="btn ghost" data-close>Annuler</button>
+          <button type="submit" class="btn primary">Continuer</button>
+        </div>
+      </form>
+      <small style="color:var(--muted)">Démo : aucune donnée n'est envoyée.</small>
+    </div>
+  </div>
+
+  <div class="modal" id="signupModal" aria-hidden="true" role="dialog" aria-label="Création de compte">
+    <div class="panel">
+      <h3 style="margin:0 0 8px">Créer un compte</h3>
+      <div class="idp" id="btnFranceConnectSignup" title="Continuer avec FranceConnect">
+        <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="#0d47a1"/><path d="M20 22h24v20H20z" fill="#fff"/><circle cx="32" cy="32" r="8" fill="#e53935"/></svg>
+        <span>Créer un compte avec FranceConnect</span>
+      </div>
+      <form id="signupForm">
+        <div class="row">
+          <input name="name" placeholder="Nom complet" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="password" type="password" placeholder="Mot de passe" required>
+        </div>
+        <div class="row" style="display:flex;gap:10px;justify-content:flex-end">
+          <button type="button" class="btn ghost" data-close>Annuler</button>
+          <button type="submit" class="btn primary">Créer mon compte</button>
+        </div>
+      </form>
+      <small style="color:var(--muted)">Démo : aucune donnée n'est envoyée.</small>
+    </div>
+  </div>
+
+  <!-- MODALE AIDE (mailto) -->
+  <div class="modal" id="assistModal" aria-hidden="true" role="dialog" aria-label="Demande d'aide">
+    <div class="panel">
+      <h3 style="margin:0 0 8px">Demande d'aide</h3>
+      <form id="assistForm">
+        <div class="row">
+          <input name="name" placeholder="Votre nom" required />
+          <input type="email" name="email" placeholder="Votre email" required />
+        </div>
+        <div class="row">
+          <input name="procedure" placeholder="Type de démarche (ex: Titre de séjour)" required />
+          <textarea name="details" rows="5" placeholder="Expliquez votre situation" required></textarea>
+        </div>
+        <div class="row" style="display:flex;gap:10px;justify-content:flex-end">
+          <button type="button" class="btn ghost" data-close>Annuler</button>
+          <button type="submit" class="btn primary">Envoyer la demande</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>© 2025 Citoyen.AI</div>
+      <div style="opacity:.85">Vitrine & Démo – aucune donnée collectée côté serveur</div>
+    </div>
+  </footer>
+
+  <script>
+    // ==== THÈME (sombre par défaut + persistance) ====
+    const root = document.documentElement;
+    const THEME_KEY = 'citoyenai-theme';
+    const applyThemeUI = (theme) => {
+      const setToggle = (iconId, labelId) => {
+        const i = document.getElementById(iconId); const l = document.getElementById(labelId);
+        if(!i || !l) return;
+        if(theme === 'light'){ i.textContent = '☀️'; l.textContent = 'Clair'; }
+        else { i.textContent = '🌙'; l.textContent = 'Sombre'; }
+      };
+      setToggle('themeIcon','themeLabel');
+      setToggle('themeIconApp','themeLabelApp');
+    };
+    const setTheme = (theme) => { root.setAttribute('data-theme', theme); localStorage.setItem(THEME_KEY, theme); applyThemeUI(theme); };
+    (function initTheme(){ const saved = localStorage.getItem(THEME_KEY); setTheme(saved || 'dark'); })();
+    document.getElementById('themeToggle')?.addEventListener('click', ()=>{ setTheme((root.getAttribute('data-theme')||'dark')==='dark'?'light':'dark'); });
+    document.getElementById('themeToggleApp')?.addEventListener('click', ()=>{ setTheme((root.getAttribute('data-theme')||'dark')==='dark'?'light':'dark'); });
+
+    // ==== PARALLAX (lissé) ====
+    const bgLogo = document.getElementById('bgLogo');
+    let targetY = 0, currentY = 0;
+    const onScroll = () => { targetY = (window.scrollY || document.documentElement.scrollTop) * 0.15; };
+    const raf = () => { currentY += (targetY - currentY) * 0.08; if(bgLogo){ bgLogo.style.transform = `translateX(-50%) translateY(${currentY}px)`; } requestAnimationFrame(raf); };
+    document.addEventListener('scroll', onScroll, { passive: true }); onScroll(); requestAnimationFrame(raf);
+
+    // ==== COMMUTATION VITRINE / APP ====
+    const vitrine = document.getElementById('vitrine');
+    const app = document.getElementById('app');
+    const menuVitrine = document.getElementById('menuVitrine');
+    const menuApp = document.getElementById('menuApp');
+    const enterApp = ()=>{ vitrine.classList.add('hidden'); app.classList.remove('hidden'); menuVitrine.classList.add('hidden'); menuApp.classList.remove('hidden'); closeAll(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    document.getElementById('logout')?.addEventListener('click', ()=>{ app.classList.add('hidden'); vitrine.classList.remove('hidden'); menuApp.classList.add('hidden'); menuVitrine.classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    // ==== MODALES (ouverture / fermeture) ====
+    const open = (id)=>{ const m=document.getElementById(id); if(!m) return; m.classList.add('open'); m.setAttribute('aria-hidden','false'); };
+    const closeAll = ()=>{ document.querySelectorAll('.modal').forEach(m=>{ m.classList.remove('open'); m.setAttribute('aria-hidden','true'); }); };
+    const byId = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener('click', fn); };
+    byId('openLogin', () => open('loginModal')); byId('openSignup', () => open('signupModal'));
+    byId('openLogin2', () => open('loginModal')); byId('openSignup2', () => open('signupModal'));
+    document.querySelectorAll('.modal').forEach(m=>{ m.addEventListener('click',(e)=>{ if(e.target===m) closeAll(); }); m.querySelectorAll('[data-close]').forEach(btn=> btn.addEventListener('click', closeAll)); });
+
+    // ==== DÉMO FRANCECONNECT & FORMULAIRES ====
+    document.getElementById('btnFranceConnectLogin')?.addEventListener('click', ()=>{ alert('FranceConnect (démo) : succès'); enterApp(); });
+    document.getElementById('btnFranceConnectSignup')?.addEventListener('click', ()=>{ alert('FranceConnect (démo) : compte créé'); enterApp(); });
+    document.getElementById('loginForm')?.addEventListener('submit',(e)=>{ e.preventDefault(); enterApp(); });
+    document.getElementById('signupForm')?.addEventListener('submit',(e)=>{ e.preventDefault(); enterApp(); });
+
+    // ==== RÉVÉLATION AU SCROLL + COMPTEURS KPI ====
+    const srObserver = new IntersectionObserver((entries)=>{
+      entries.forEach((e)=>{ if(e.isIntersecting){ e.target.classList.add('in'); srObserver.unobserve(e.target);
+        if(e.target.classList.contains('kpi')){
+          const box = e.target.querySelector('.big'); const txt = box.textContent.trim();
+          let to = parseInt(e.target.getAttribute('data-to')||'0',10), suffix = '';
+          if(txt.includes('%')) suffix = '%'; if(txt.includes('min')) suffix = ' min';
+          let from = 0; const t0 = performance.now(), D = 900;
+          const step = (t)=>{ const p = Math.min(1,(t-t0)/D); const val = Math.round(from + (to-from)*p); box.textContent = val + suffix; if(p<1) requestAnimationFrame(step); };
+          requestAnimationFrame(step);
+        }
+      }});
+    },{threshold:0.15});
+    document.querySelectorAll('.reveal, .kpi').forEach(el=>{ srObserver.observe(el); });
+
+    // ==== OUVERTURE MODALE AIDE (cartes cliquables) ====
+    document.querySelectorAll('#aide .help-item').forEach(card=>{
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      const openAssist = ()=>{
+        open('assistModal');
+        const proc = card.getAttribute('data-proc') || card.textContent.trim();
+        const input = document.querySelector('#assistForm [name="procedure"]');
+        if(input) input.value = proc;
+      };
+      card.addEventListener('click', openAssist);
+      card.addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openAssist(); }});
+    });
+
+    // ==== AIDE & CONTACT (mailto) ====
+    const TARGET = 'corentin13127@gmail.com';
+    document.getElementById('assistForm')?.addEventListener('submit',(e)=>{
+      e.preventDefault(); const d = new FormData(e.target);
+      const subject = encodeURIComponent(`[Citoyen.AI] Demande d'aide – ${d.get('procedure')}`);
+      const body = encodeURIComponent(`Nom: ${d.get('name')}
+Email: ${d.get('email')}
+Démarche: ${d.get('procedure')}
+
+Détails:
+${d.get('details')}`);
+      window.location.href = `mailto:${TARGET}?subject=${subject}&body=${body}`; closeAll();
+    });
+    document.getElementById('contactForm')?.addEventListener('submit',(e)=>{
+      e.preventDefault(); const d = new FormData(e.target);
+      const subject = encodeURIComponent('[Citoyen.AI] Contact site');
+      const body = encodeURIComponent(`Nom: ${d.get('name')}
+Email: ${d.get('email')}
+
+Message:
+${d.get('message')}`);
+      window.location.href = `mailto:${TARGET}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
